@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    background-color: rgb(241, 245, 241);
+}
+
+.futura-font{
+    font-family: futura;
+}
 
 *::selection{
     color: #fff;

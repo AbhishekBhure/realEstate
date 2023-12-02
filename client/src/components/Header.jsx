@@ -10,7 +10,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-slate-200 shadow-md fixed z-40 w-full">
+    <header className="bg-slate-200 shadow-md  z-40 w-full">
       <div className="flex justify-between p-3 items-center max-w-6xl mx-auto">
         <Link to="/">
           <h1 className="futura-font font-bold text-sm sm:text-3xl flex flex-wrap  logo">

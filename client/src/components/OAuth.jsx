@@ -1,6 +1,6 @@
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { google } from "../icons";
-import { enqueueSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import { app } from "../firebase";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const OAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleGoogleAuth = async () => {
     try {
@@ -27,8 +28,9 @@ const OAuth = () => {
           photo: result.user.photoURL,
         }),
       });
-      const data = res.json();
+      const data = await res.json();
       dispatch(signInSuccess(data));
+      enqueueSnackbar("Logged In Succesfully", { variant: "success" });
       navigate("/");
     } catch (error) {
       enqueueSnackbar("Could not Sign in with gogle", error);

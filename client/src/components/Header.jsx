@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { FaSearch } from "../icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
     gsap.to(".logo", { opacity: 1, duration: 1, delay: 0.5 });
   }, []);
@@ -25,19 +27,30 @@ const Header = () => {
             type="text"
             placeholder="Search..."
             className="bg-transparent focus:outline-none w-24 sm:w-64"
-            
           />
         </form>
-        <ul className="flex gap-4">
-          <li className="hidden sm:inline text-slate-700 ">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="hidden sm:inline text-slate-700 ">
-            <Link to="/about">About</Link>
-          </li>
-          <li className=" text-slate-700 ">
-            <Link to="sign-in">SignIn</Link>
-          </li>
+        <ul className="flex gap-4 justify-center items-center">
+          <Link to="/">
+            <li className="hidden sm:inline text-slate-700 ">Home</li>
+          </Link>
+          <Link to="/about">
+            <li className="hidden sm:inline text-slate-700 ">About</li>
+          </Link>
+          <Link to="/profile">
+            {currentUser ? (
+              <>
+                {/* <span> {currentUser.username} </span> */}
+                <img
+                  src={currentUser.avatar}
+                  title={currentUser.username}
+                  alt="profile"
+                  className="w-[35px] rounded-full object-cover"
+                />
+              </>
+            ) : (
+              <li className=" text-slate-700 ">SignIn</li>
+            )}
+          </Link>
         </ul>
       </div>
       <div></div>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
+import OAuth from "../components/OAuth";
 
 import {
   signInFailure,
@@ -75,6 +76,7 @@ const SignIn = () => {
         >
           {loading ? <Loader /> : "  sign in"}
         </button>
+        <OAuth />
         <div className="flex gap-2 mt-5">
           <p>Dont have an Acount?</p>
           <Link to={"/sign-up"}>

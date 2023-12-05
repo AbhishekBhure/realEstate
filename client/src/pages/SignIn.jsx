@@ -54,7 +54,7 @@ const SignIn = () => {
 
   return (
     <div className="p-6 max-w-lg mx-auto">
-      <h1 className="text-5xl text-center  futura-font">Sign Up</h1>
+      <h1 className="text-5xl text-center  futura-font">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6">
         <input
           id="email"

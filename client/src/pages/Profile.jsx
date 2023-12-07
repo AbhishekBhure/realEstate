@@ -17,6 +17,9 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
+  signOutUserFailure,
 } from "../redux/user/userSlice";
 import ConfirmationModal from "../components/ConfirmationModal";
 
@@ -126,6 +129,27 @@ const Profile = () => {
   const handleCloseModal = () => {
     setIsConfirmModalOpen(false);
   };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      setLoad(true);
+      const res = await fetch("/api/v1/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
+        setLoad(false);
+        dispatch(signOutUserFailure(data.message));
+        enqueueSnackbar(data.message, { variant: "error" });
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+      setLoad(false);
+      enqueueSnackbar("Logged out Successfully", { variant: "success" });
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
   return (
     <div className="text-center max-w-lg mx-auto">
       <h1 className="futura-font text-3xl my-7 text-center">Profile</h1>
@@ -195,7 +219,10 @@ const Profile = () => {
         >
           {load ? <Loader /> : "delete account"}
         </button>
-        <button className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500 ">
+        <button
+          className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
+          onClick={handleSignOut}
+        >
           {load ? <Loader /> : "sign out"}
         </button>
       </div>

@@ -14,6 +14,9 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
 } from "../redux/user/userSlice";
 
 const Profile = () => {
@@ -80,12 +83,35 @@ const Profile = () => {
         dispatch(updateUserFailure(data.message));
         return;
       }
-      setLoad(false);
       dispatch(updateUserSuccess(data));
+      setLoad(false);
       enqueueSnackbar("Profile Updated Successfully", { variant: "success" });
     } catch (error) {
       setLoad(false);
       dispatch(updateUserFailure(error.message));
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setLoad(true);
+      dispatch(deleteUserStart);
+      const res = await fetch(`/api/v1/users/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = res.json();
+      if (data.success === false) {
+        setLoad(false);
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+      setLoad(false);
+      enqueueSnackbar("User Deleted Successfully", { variant: "success" });
+    } catch (error) {
+      setLoad(false);
+      dispatch(deleteUserFailure(error.message));
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
@@ -152,11 +178,14 @@ const Profile = () => {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <button className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500">
-          delete account
+        <button
+          className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
+          onClick={handleDelete}
+        >
+          {load ? <Loader /> : "delete account"}
         </button>
         <button className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500 ">
-          sign out
+          {load ? <Loader /> : "sign out"}
         </button>
       </div>
       <p className="text-red-700">{error ? error : ""}</p>

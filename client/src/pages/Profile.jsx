@@ -18,6 +18,7 @@ import {
   deleteUserSuccess,
   deleteUserFailure,
 } from "../redux/user/userSlice";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const Profile = () => {
   const fileRef = useRef();
@@ -27,6 +28,7 @@ const Profile = () => {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [load, setLoad] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -93,17 +95,22 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteConfirmation = () => {
+    setIsConfirmModalOpen(true);
+  };
+
   const handleDelete = async () => {
     try {
+      setIsConfirmModalOpen(false);
+      dispatch(deleteUserStart());
       setLoad(true);
-      dispatch(deleteUserStart);
       const res = await fetch(`/api/v1/users/delete/${currentUser._id}`, {
         method: "DELETE",
       });
       const data = res.json();
       if (data.success === false) {
-        setLoad(false);
         dispatch(deleteUserFailure(data.message));
+        setLoad(false);
         return;
       }
       dispatch(deleteUserSuccess(data));
@@ -114,6 +121,10 @@ const Profile = () => {
       dispatch(deleteUserFailure(error.message));
       enqueueSnackbar(error.message, { variant: "error" });
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsConfirmModalOpen(false);
   };
   return (
     <div className="text-center max-w-lg mx-auto">
@@ -180,7 +191,7 @@ const Profile = () => {
       <div className="flex justify-between mt-5">
         <button
           className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
-          onClick={handleDelete}
+          onClick={handleDeleteConfirmation}
         >
           {load ? <Loader /> : "delete account"}
         </button>
@@ -190,7 +201,12 @@ const Profile = () => {
       </div>
       <p className="text-red-700">{error ? error : ""}</p>
       <>
-        <UpdateProfile />
+        {/* <UpdateProfile /> */}
+        <ConfirmationModal
+          isOpen={isConfirmModalOpen}
+          onClose={handleCloseModal}
+          onConfirm={handleDelete}
+        />
       </>
     </div>
   );

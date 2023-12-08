@@ -30,7 +30,6 @@ const Profile = () => {
   const [filePercentage, setFilePercentage] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  const [load, setLoad] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -73,8 +72,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoad(true);
-      dispatch(updateUserStart);
+      dispatch(updateUserStart());
       const res = await fetch(`/api/v1/users/update/${currentUser._id}`, {
         method: "POST",
         headers: {
@@ -84,15 +82,12 @@ const Profile = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoad(false);
         dispatch(updateUserFailure(data.message));
         return;
       }
       dispatch(updateUserSuccess(data));
-      setLoad(false);
       enqueueSnackbar("Profile Updated Successfully", { variant: "success" });
     } catch (error) {
-      setLoad(false);
       dispatch(updateUserFailure(error.message));
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -106,21 +101,17 @@ const Profile = () => {
     try {
       setIsConfirmModalOpen(false);
       dispatch(deleteUserStart());
-      setLoad(true);
       const res = await fetch(`/api/v1/users/delete/${currentUser._id}`, {
         method: "DELETE",
       });
       const data = res.json();
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
-        setLoad(false);
         return;
       }
       dispatch(deleteUserSuccess(data));
-      setLoad(false);
       enqueueSnackbar("User Deleted Successfully", { variant: "success" });
     } catch (error) {
-      setLoad(false);
       dispatch(deleteUserFailure(error.message));
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -133,17 +124,14 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      setLoad(true);
       const res = await fetch("/api/v1/auth/signout");
       const data = await res.json();
       if (data.success === false) {
-        setLoad(false);
         dispatch(signOutUserFailure(data.message));
         enqueueSnackbar(data.message, { variant: "error" });
         return;
       }
       dispatch(signOutUserSuccess(data));
-      setLoad(false);
       enqueueSnackbar("Logged out Successfully", { variant: "success" });
     } catch (error) {
       dispatch(signOutUserFailure(error.message));
@@ -209,7 +197,7 @@ const Profile = () => {
           disabled={loading}
           className="bg-slate-700 rounded-lg text-white uppercase hover:opacity-95 p-3 disabled:opacity-80 transition-all duration-500 "
         >
-          {load ? <Loader /> : "update"}
+          {loading ? <Loader /> : "update"}
         </button>
       </form>
       <div className="flex justify-between mt-5">
@@ -217,13 +205,13 @@ const Profile = () => {
           className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
           onClick={handleDeleteConfirmation}
         >
-          {load ? <Loader /> : "delete account"}
+          delete account
         </button>
         <button
           className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
           onClick={handleSignOut}
         >
-          {load ? <Loader /> : "sign out"}
+          sign out
         </button>
       </div>
       <p className="text-red-700">{error ? error : ""}</p>

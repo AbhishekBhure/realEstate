@@ -3,6 +3,7 @@ import UpdateProfile from "../components/UpdateProfile";
 import { useEffect, useRef, useState } from "react";
 import { useSnackbar } from "notistack";
 import Loader from "../components/Loader";
+import { Link } from "react-router-dom";
 import {
   getDownloadURL,
   getStorage,
@@ -199,6 +200,12 @@ const Profile = () => {
         >
           {loading ? <Loader /> : "update"}
         </button>
+        <Link
+          className="bg-green-700 rounded-lg text-white uppercase hover:opacity-95 p-3 disabled:opacity-80 transition-all duration-500"
+          to="/create-listing"
+        >
+          create listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <button

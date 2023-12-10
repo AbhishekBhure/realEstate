@@ -3,8 +3,11 @@ import { Home, About, SignIn, SignUp, Profile } from "./pages";
 import Header from "./components/Header";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateListing from "./pages/CreateListing";
+import Listings from "./pages/Listings";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <BrowserRouter>
       <Header />
@@ -16,6 +19,14 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-listing" element={<CreateListing />} />
+          {currentUser ? (
+            <Route
+              path={`/listings/${currentUser._id}`}
+              element={<Listings />}
+            />
+          ) : (
+            "Dont have any listings"
+          )}
         </Route>
       </Routes>
     </BrowserRouter>

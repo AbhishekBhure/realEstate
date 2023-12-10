@@ -10,6 +10,7 @@ import { FaTrashAlt } from "../icons";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const CreateListing = () => {
   const [files, setFiles] = useState([]);
@@ -31,6 +32,9 @@ const CreateListing = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
+
   const { currentUser } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -149,10 +153,12 @@ const CreateListing = () => {
       if (data.success === false) {
         setError(data.message);
       }
+      enqueueSnackbar("Listing Created Succefully", { variant: "success" });
       // navigate(`listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);
+      enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 

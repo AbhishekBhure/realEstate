@@ -139,6 +139,7 @@ const Profile = () => {
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
+
   return (
     <div className="text-center max-w-lg mx-auto">
       <h1 className="futura-font text-3xl my-7 text-center">Profile</h1>
@@ -222,6 +223,12 @@ const Profile = () => {
         </button>
       </div>
       <p className="text-red-700">{error ? error : ""}</p>
+      <Link to={`/listings/${currentUser._id}`}>
+        <button className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500">
+          show listings
+        </button>
+      </Link>
+
       <>
         {/* <UpdateProfile /> */}
         <ConfirmationModal

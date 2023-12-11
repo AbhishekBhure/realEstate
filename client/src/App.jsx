@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreateListing from "./pages/CreateListing";
 import Listings from "./pages/Listings";
 import { useSelector } from "react-redux";
+import UpdateListing from "./pages/UpdateLIsting";
 
 const App = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -27,6 +28,10 @@ const App = () => {
           ) : (
             "Dont have any listings"
           )}
+          <Route
+            path="/update-listing/:listingId"
+            element={<UpdateListing />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

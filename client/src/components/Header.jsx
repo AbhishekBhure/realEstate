@@ -39,7 +39,6 @@ const Header = () => {
           <Link to="/profile">
             {currentUser ? (
               <>
-                {/* <span> {currentUser.username} </span> */}
                 <img
                   src={currentUser.avatar}
                   title={currentUser.username}
@@ -48,7 +47,9 @@ const Header = () => {
                 />
               </>
             ) : (
-              <li className=" text-slate-700 ">SignIn</li>
+              <>
+                <li className=" text-slate-700 ">SignIn</li>
+              </>
             )}
           </Link>
         </ul>

@@ -105,9 +105,11 @@ const Listings = () => {
                   >
                     delete
                   </button>
-                  <button className="border p-2  rounded-lg bg-white hover:border-black transition-all duration-500">
-                    edit
-                  </button>
+                  <Link to={`/update-listing/${listing._id}`}>
+                    <button className="border p-2  rounded-lg bg-white hover:border-black transition-all duration-500">
+                      edit
+                    </button>
+                  </Link>
                 </td>
                 <td>
                   <ConfirmationModal

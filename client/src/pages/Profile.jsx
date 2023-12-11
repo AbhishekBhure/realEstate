@@ -153,7 +153,7 @@ const Profile = () => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <img
-          className="self-center w-24 mx-auto  rounded-full"
+          className="self-center w-24 h-24 object-cover mx-auto  rounded-full"
           src={formData.avatar || currentUser.avatar}
           alt="photo"
           onClick={() => fileRef.current.click()}
@@ -163,8 +163,7 @@ const Profile = () => {
             <span className="text-red-700">Error Image upload (2mb)</span>
           ) : filePercentage > 0 && filePercentage < 100 ? (
             <span className="text-slate-700">
-              {" "}
-              {`Uploading ${filePercentage}%`}{" "}
+              {`Uploading ${filePercentage}%`}
             </span>
           ) : filePercentage === 100 ? (
             <span className="text-green-700">Image Successfully uploaded</span>

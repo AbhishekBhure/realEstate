@@ -6,6 +6,7 @@ import CreateListing from "./pages/CreateListing";
 import Listings from "./pages/Listings";
 import { useSelector } from "react-redux";
 import UpdateListing from "./pages/UpdateLIsting";
+import SingleListing from "./pages/SingleListing";
 
 const App = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -33,6 +34,7 @@ const App = () => {
             element={<UpdateListing />}
           />
         </Route>
+        <Route path="/listing/:listingId" element={<SingleListing />} />
       </Routes>
     </BrowserRouter>
   );

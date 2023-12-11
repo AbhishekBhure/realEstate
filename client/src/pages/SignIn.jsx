@@ -43,7 +43,7 @@ const SignIn = () => {
         enqueueSnackbar(data.message, { variant: "error" });
         return;
       }
-      dispatch(signInSuccess());
+      dispatch(signInSuccess(data));
       enqueueSnackbar("Logged In Successfully", { variant: "success" });
       navigate("/");
     } catch (error) {

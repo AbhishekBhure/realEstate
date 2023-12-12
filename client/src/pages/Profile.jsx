@@ -141,8 +141,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="text-center max-w-lg mx-auto">
-      <h1 className="futura-font text-3xl my-7 text-center">Profile</h1>
+    <div className="text-center max-w-lg mx-auto py-9 px-3">
+      <h1 className="futura-font text-3xl my-3 text-center">Profile</h1>
       <h3 className="mb-4 italic">Welcome {currentUser.username}</h3>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -207,26 +207,29 @@ const Profile = () => {
           create listing
         </Link>
       </form>
-      <div className="flex justify-between mt-5">
+      <div className="flex justify-around mt-5">
         <button
-          className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
+          className="md:uppercase border md:p-3 p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
           onClick={handleDeleteConfirmation}
         >
-          delete account
+          Delete Account
         </button>
+        <Link to={`/listings/${currentUser._id}`}>
+          <button
+            type="button"
+            className="md:uppercase  border md:p-3 p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
+          >
+            Show Listings
+          </button>
+        </Link>
         <button
-          className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
+          className="md:uppercase border md:p-3 p-3 rounded-lg bg-white hover:border-black transition-all duration-500"
           onClick={handleSignOut}
         >
-          sign out
+          Sign Out
         </button>
       </div>
       <p className="text-red-700">{error ? error : ""}</p>
-      <Link to={`/listings/${currentUser._id}`}>
-        <button className="uppercase border p-3 rounded-lg bg-white hover:border-black transition-all duration-500">
-          show listings
-        </button>
-      </Link>
 
       <>
         {/* <UpdateProfile /> */}

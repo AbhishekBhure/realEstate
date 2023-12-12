@@ -86,7 +86,7 @@ const Listings = () => {
                   <Link to={`/listing/${listing._id}`}>
                     {listing.imageUrls.length > 0 ? (
                       <img
-                        className="w-20 object-cover"
+                        className="w-20 h-16 object-cover"
                         src={listing.imageUrls}
                         alt="images"
                       />

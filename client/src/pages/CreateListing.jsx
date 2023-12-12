@@ -154,7 +154,7 @@ const CreateListing = () => {
         setError(data.message);
       }
       enqueueSnackbar("Listing Created Succefully", { variant: "success" });
-      // navigate(`listing/${data._id}`);
+      navigate(`/listing/${data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);

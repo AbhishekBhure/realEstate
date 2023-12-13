@@ -29,7 +29,7 @@ const Header = () => {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
-    navigate(`/serach?${searchQuery}`);
+    navigate(`/search?${searchQuery}`);
   };
 
   return (

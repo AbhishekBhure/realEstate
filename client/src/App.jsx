@@ -7,6 +7,7 @@ import Listings from "./pages/Listings";
 import { useSelector } from "react-redux";
 import UpdateListing from "./pages/UpdateLIsting";
 import SingleListing from "./pages/SingleListing";
+import { Search } from "./pages/Search";
 
 const App = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -35,6 +36,7 @@ const App = () => {
           />
         </Route>
         <Route path="/listing/:listingId" element={<SingleListing />} />
+        <Route path="/search" element={<Search />} />
       </Routes>
     </BrowserRouter>
   );

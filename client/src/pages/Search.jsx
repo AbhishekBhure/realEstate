@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import ListingCard from "../components/ListingCard";
+import { FaArrowDown } from "../icons";
 
 export const Search = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  console.log(listings);
+  const [showMore, setShowMore] = useState(false);
+  console.log(listings.length);
   const [sidebarData, setSidebarData] = useState({
     searchTerm: "",
     type: "all",
@@ -51,9 +53,15 @@ export const Search = () => {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/v1/listing/getListings?${searchQuery}`);
       const data = await res.json();
+      if (data.length > 5) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -108,6 +116,20 @@ export const Search = () => {
 
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const handleShowMore = async () => {
+    const numberOflistings = listings.length;
+    const startIndex = numberOflistings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/v1/listing/getListings?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 6) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
   return (
     <div className="flex flex-col md:flex-row">
@@ -226,6 +248,16 @@ export const Search = () => {
             listings.map((listing) => (
               <ListingCard key={listing._id} listing={listing} />
             ))}
+        </div>
+        <div className="flex items-center justify-center pb-6">
+          {showMore && (
+            <button
+              onClick={handleShowMore}
+              className="md:uppercase  border md:p-3 p-3 rounded-lg bg-white hover:border-black transition-all duration-500 flex gap-2 items-center justify-center"
+            >
+              Show More <FaArrowDown />
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import {
   FaBath,
   FaParking,
   FaChair,
+  FaArrowDown,
 } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 
@@ -22,5 +23,6 @@ export {
   FaBath,
   FaChair,
   FaParking,
+  FaArrowDown,
   MdLocationOn,
 };

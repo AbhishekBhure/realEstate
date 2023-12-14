@@ -4,8 +4,8 @@ const about = () => {
   return (
     <div className="flex flex-col items-center justify-center my-7 max-w-6xl mx-auto py-8 px-10">
       <h1 className="text-3xl lg:text-6xl futura-font mb-4 font-bold">
-        About <span className="text-slate-700">Snap</span>
-        <span className="text-slate-500">Space</span>
+        About <span className="text-slate-500">Snap</span>
+        <span className="text-slate-700">Space</span>
       </h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ad beatae

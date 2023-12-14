@@ -44,15 +44,15 @@ const Header = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-slate-100 p-3 rounded-full flex items-center border border-transparent focus-within:border-slate-500 transition-border duration-300"
+          className="bg-slate-100 p-2 md:p-3 rounded-full flex items-center border border-transparent focus-within:border-slate-500 transition-border duration-300"
         >
           <button>
-            <FaSearch className="text-slate-600 mr-2" />
+            <FaSearch className="text-slate-600 mx-2" />
           </button>
           <input
             type="text"
             placeholder="Search..."
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
+            className="bg-transparent focus:outline-none w-32 sm:w-64"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

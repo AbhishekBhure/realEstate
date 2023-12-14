@@ -4,15 +4,14 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/userRoute.js";
 import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRoute.js";
-
 import cookieParser from "cookie-parser";
+import path from "path";
 
+dotenv.config();
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-
-dotenv.config();
 
 mongoose
   .connect(process.env.MONGO_ATLAS_URL)
@@ -23,6 +22,8 @@ mongoose
     console.log(err);
   });
 
+const __dirname = path.resolve();
+
 app.get("/", (req, res) => {
   res.send("Hi");
 });
@@ -30,6 +31,12 @@ app.get("/", (req, res) => {
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/listing", listingRouter);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

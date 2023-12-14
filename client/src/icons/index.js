@@ -8,6 +8,8 @@ import {
   FaParking,
   FaChair,
 } from "react-icons/fa";
+import { MdLocationOn } from "react-icons/md";
+
 import google from "./google.png";
 
 export {
@@ -20,4 +22,5 @@ export {
   FaBath,
   FaChair,
   FaParking,
+  MdLocationOn,
 };

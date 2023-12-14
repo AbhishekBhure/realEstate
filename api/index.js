@@ -24,10 +24,6 @@ mongoose
 
 const __dirname = path.resolve();
 
-app.get("/", (req, res) => {
-  res.send("Hi");
-});
-
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/listing", listingRouter);

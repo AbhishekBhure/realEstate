@@ -13,8 +13,6 @@ const Home = () => {
 
   SwiperCore.use([Navigation]);
 
-  console.log(saleListings);
-
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
@@ -107,7 +105,7 @@ const Home = () => {
             </div>
             <div className="flex flex-wrap gap-4">
               {offerListings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+                <ListingCard key={listing._id} listing={listing} />
               ))}
             </div>
           </div>
@@ -127,7 +125,7 @@ const Home = () => {
             </div>
             <div className="flex flex-wrap gap-4">
               {rentListings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+                <ListingCard key={listing._id} listing={listing} />
               ))}
             </div>
           </div>
@@ -147,7 +145,7 @@ const Home = () => {
             </div>
             <div className="flex flex-wrap gap-4">
               {saleListings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+                <ListingCard key={listing._id} listing={listing} />
               ))}
             </div>
           </div>

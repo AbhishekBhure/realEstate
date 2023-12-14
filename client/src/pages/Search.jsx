@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import ListingCard from "../components/ListingCard";
 
 export const Search = () => {
   const navigate = useNavigate();
@@ -202,8 +203,8 @@ export const Search = () => {
             >
               <option value="regularPrice_desc"> Price high to low </option>
               <option value="regularPrice_asc"> Price low to high </option>
-              <option value="created_at_desc"> Latest </option>
-              <option value="created_at_asc"> oldest </option>
+              <option value="createdAt_desc"> Latest </option>
+              <option value="createdAt_asc"> oldest </option>
             </select>
           </div>
           <button className="bg-slate-700 p-3 rounded-lg uppercase text-white hover:opacity-95">
@@ -211,10 +212,21 @@ export const Search = () => {
           </button>
         </form>
       </div>
-      <div className="">
+      <div className="flex-1">
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
           Listing results:
         </h1>
+        <div className="p-7 flex flex-wrap gap-4 items-center justify-center ">
+          {!loading && listings.length === 0 && (
+            <h1 className=" text-3xl italic">No Listing Found!</h1>
+          )}
+          {loading && <Loader />}
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingCard key={listing._id} listing={listing} />
+            ))}
+        </div>
       </div>
     </div>
   );

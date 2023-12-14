@@ -39,8 +39,6 @@ const CreateListing = () => {
 
   const navigate = useNavigate();
 
-  console.log(formData);
-
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);

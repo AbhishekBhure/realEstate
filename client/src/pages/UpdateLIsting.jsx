@@ -66,7 +66,7 @@ const UpdateListing = () => {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Uploadi is ${progress}% done`);
+          console.log(`Uploading is ${progress}% done`);
         },
         (error) => {
           reject(error);

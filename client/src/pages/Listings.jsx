@@ -32,8 +32,6 @@ const Listings = () => {
     }
   }, []);
 
-  console.log(userListings);
-
   const handleDeleteConfirmation = () => {
     setIsConfirmModalOpen(true);
   };

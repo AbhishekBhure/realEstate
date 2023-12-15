@@ -6,19 +6,14 @@
             "use":"@vercel/node"
         }
     ],
-    "routes":[
-        {
-            "src":"/(.*)",
-            "dest":"/"
-        }
-    ],
+ 
     "buildCommand": "npm install && npm run build",
     "outputDirectory": "dist",
     "framework": "vite",
     "rewrites": [
         {
-            "source": "/api/v1/(.*)",
-            "destination": "/api/v1/index.js"
+            "source": "/(.*)",
+            "destination": "/"
         }
     ]
 }

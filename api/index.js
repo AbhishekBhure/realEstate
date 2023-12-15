@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: ["https://snap-space.vercel.app"],
+    origin: ["https://snap-space.vercel.app/api/v1"],
     methods: ["POST", "GET", "DELETE"],
     credentials: true,
   })

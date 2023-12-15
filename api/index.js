@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server Running on port: ${process.env.PORT}`);
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server Running on port: ${PORT}`);
 });
